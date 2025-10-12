@@ -13,6 +13,32 @@ def test_constructor(snake: Snake):
 
 
 def test_snake_moves_right(snake: Snake):
+    snake.head = (2, 2)
+    snake.body = [(2, 2)]
     snake.move("right")
-    assert snake.head == (1, 0)
-    assert snake.body == [(1, 0)]
+    assert snake.head == (3, 2)
+    assert snake.body == [(3, 2)]
+
+
+def test_snake_moves_left(snake: Snake):
+    snake.head = (2, 2)
+    snake.body = [(2, 2)]
+    snake.move("left")
+    assert snake.head == (1, 2)
+    assert snake.body == [(1, 2)]
+
+
+def test_snake_moves_down(snake: Snake):
+    snake.head = (2, 2)
+    snake.body = [(2, 2)]
+    snake.move("down")
+    assert snake.head == (2, 3)
+    assert snake.body == [(2, 3)]
+
+
+def test_snake_moves_up(snake: Snake):
+    snake.head = (2, 2)
+    snake.body = [(2, 2)]
+    snake.move("up")
+    assert snake.head == (2, 1)
+    assert snake.body == [(2, 1)]
