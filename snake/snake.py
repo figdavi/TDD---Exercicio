@@ -7,10 +7,11 @@ class Snake:
     def __init__(self, head: tuple[int, int], body: list[tuple[int, int]]):
         self.head = head
         self.body = body
+        self.direction: Direction = "up"
 
-    def move(self, dir: Direction):
+    def move(self):
         x, y = self.head
-        match dir:
+        match self.direction:
             # upmost is [0][0]
             case "up":
                 y -= 1
