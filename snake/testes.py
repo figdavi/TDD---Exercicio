@@ -64,3 +64,9 @@ def test_snake_invalid_direction(snake: Snake):
     snake.change_direction("lef")  # type: ignore
 
     assert snake.direction == "down"
+
+
+def test_snake_cannot_reverse_direction(snake: Snake):
+    snake.change_direction("left")
+    snake.change_direction("right")
+    assert snake.direction == "left"
