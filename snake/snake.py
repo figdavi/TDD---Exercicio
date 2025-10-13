@@ -26,6 +26,7 @@ class Snake:
         self.head = (x, y)
         self.body.insert(0, self.head)
 
+        # Fruit eating logic
         if self.head not in self.fruits:
             self.body.pop()
         else:
