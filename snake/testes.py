@@ -101,7 +101,6 @@ def test_snake_hits_wall_returns_false(snake: Snake):
     snake.head = (0, 0)
     snake.body = [(0, 0)]
     snake.direction = "up"
-    snake.game_height, snake.game_width = 10, 10
 
     result = snake.move()
     assert result is False

@@ -4,7 +4,7 @@ Direction = Literal["up", "down", "right", "left"]
 
 
 class Snake:
-    def __init__(self, head: tuple[int, int], body: list[tuple[int, int]]):
+    def __init__(self, head: tuple[int, int], body: list[tuple[int, int]]) -> bool:
         self.head = head
         self.body = body
         self.direction: Direction = "up"
@@ -25,6 +25,7 @@ class Snake:
             case "right":
                 x += 1
 
+        # Check if move is out of bounds
         if x < 0 or x >= self.game_width or y < 0 or y >= self.game_height:
             return False
 
@@ -36,6 +37,8 @@ class Snake:
             self.body.pop()
         else:
             self.fruits.remove(self.head)
+
+        return True
 
     def change_direction(self, new_direction: Direction):
         # Checks if new_direction is a valid direction
