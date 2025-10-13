@@ -16,7 +16,7 @@ def test_constructor(snake: Snake):
 def test_snake_moves_up(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.direction = "up"
+    snake.change_direction("up")
 
     snake.move()
     assert snake.head == (2, 1)
@@ -26,7 +26,7 @@ def test_snake_moves_up(snake: Snake):
 def test_snake_moves_down(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.direction = "down"
+    snake.change_direction("down")
 
     snake.move()
     assert snake.head == (2, 3)
@@ -36,7 +36,7 @@ def test_snake_moves_down(snake: Snake):
 def test_snake_moves_left(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.direction = "left"
+    snake.change_direction("left")
 
     snake.move()
     assert snake.head == (1, 2)
@@ -46,7 +46,7 @@ def test_snake_moves_left(snake: Snake):
 def test_snake_moves_right(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.direction = "right"
+    snake.change_direction("right")
 
     snake.move()
     assert snake.head == (3, 2)
