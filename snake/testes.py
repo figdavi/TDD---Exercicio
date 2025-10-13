@@ -1,5 +1,6 @@
 import pytest
 from .snake import Snake
+from .game import Game
 
 
 @pytest.fixture
@@ -113,3 +114,14 @@ def test_snake_hits_itself_returns_false(snake: Snake):
 
     result = snake.move()
     assert result is False
+
+
+@pytest.fixture
+def game(snake: Snake):
+    return Game(height=10, width=10, snake=snake)
+
+
+def test_game_constructor(game: Game, snake: Snake):
+    assert game.height == 10
+    assert game.width == 10
+    assert game.snake == snake
