@@ -8,7 +8,6 @@ class Snake:
         self.head = head
         self.body = body
         self.direction: Direction = "up"
-        self.fruits: list[tuple[int, int]] = []
 
     def move(self, height: int, width: int, fruits: list[tuple[int, int]]) -> bool:
         x, y = self.head
@@ -33,10 +32,10 @@ class Snake:
         self.body.insert(0, self.head)
 
         # Fruit eating logic
-        if self.head not in self.fruits:
+        if self.head not in fruits:
             self.body.pop()
         else:
-            self.fruits.remove(self.head)
+            fruits.remove(self.head)
 
         return True
 

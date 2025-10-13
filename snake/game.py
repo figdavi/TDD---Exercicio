@@ -14,7 +14,7 @@ class Game:
         self.fruits: list[tuple[int, int]] = []
         self.spawn_fruits()
 
-    def required_fruit_count(self):
+    def required_fruit_count(self) -> int:
         return 1 + len(self.snake.body) // 10
 
     def spawn_fruits(self):

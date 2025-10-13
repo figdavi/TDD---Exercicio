@@ -78,24 +78,24 @@ def test_snake_cannot_reverse_direction(snake: Snake):
     assert snake.direction == "up"
 
 
-def test_snake_grows_when_eating_fruit(snake: Snake):
+def test_snake_grows_when_eating_fruit(snake: Snake, game: Game):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.fruits.append((2, 1))
+    game.fruits = [(2, 1)]
     snake.direction = "up"
-    snake.move(10, 10, [])
+    snake.move(game.width, game.height, game.fruits)
 
     assert len(snake.body) == 2
 
 
-def test_fruits_get_removed_after_being_eaten(snake: Snake):
+def test_fruits_get_removed_after_being_eaten(snake: Snake, game: Game):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.fruits = [(2, 1)]
+    game.fruits = [(2, 1)]
     snake.direction = "up"
-    snake.move(10, 10, [])
+    snake.move(game.width, game.height, game.fruits)
 
-    assert (2, 1) not in snake.fruits
+    assert (2, 1) not in game.fruits
 
 
 def test_snake_hits_wall_wraps_around(snake: Snake):
