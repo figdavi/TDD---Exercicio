@@ -55,3 +55,13 @@ def test_snake_moves_right(snake: Snake):
     assert snake.direction == "right"
     assert snake.head == (3, 2)
     assert snake.body == [(3, 2)]
+
+
+def test_snake_invalid_direction(snake: Snake):
+    snake.change_direction("a")
+
+    assert snake.direction != "a"
+
+    snake.change_direction("lef")
+
+    assert snake.direction != "lef"
