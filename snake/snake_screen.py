@@ -62,7 +62,6 @@ game = Game(10, 10)
 def game_loop():
     instance.record_inputs()
     while True:
-        instance.display()
         print("mova com WASD, saia com esc. Ultimo botão:", end=" ")
         dir_map = {"w": "up", "s": "down", "a": "left", "d": "right"}
         if instance.last_input in dir_map:
@@ -79,6 +78,8 @@ def game_loop():
         print(instance.last_input)
         if instance.last_input == "end":
             exit()
+
+        instance.display()
         time.sleep(instance.game_speed)
 
 
