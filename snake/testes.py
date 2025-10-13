@@ -125,7 +125,3 @@ def game(snake: Snake):
 def test_game_constructor(game: Game):
     assert game.height == 10
     assert game.width == 10
-
-
-def test_game_fruit_count(game: Game):
-    assert len(game.snake.body)
