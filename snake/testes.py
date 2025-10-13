@@ -118,10 +118,9 @@ def test_snake_hits_itself_returns_false(snake: Snake):
 
 @pytest.fixture
 def game(snake: Snake):
-    return Game(height=10, width=10, snake=snake)
+    return Game(height=10, width=10)
 
 
-def test_game_constructor(game: Game, snake: Snake):
+def test_game_constructor(game: Game):
     assert game.height == 10
     assert game.width == 10
-    assert game.snake == snake

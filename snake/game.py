@@ -4,8 +4,10 @@ from .snake import Snake
 
 
 class Game:
-    def __init__(self, height: int, width: int, snake: Snake):
+    def __init__(self, height: int, width: int):
         self.height = height
         self.width = width
-        self.snake = snake
+        self.snake = Snake(
+            head=(width // 2, height // 2), body=[(width // 2, height // 2)]
+        )
         self.fruits: list[tuple[int, int]] = []
