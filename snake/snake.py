@@ -29,6 +29,9 @@ class Snake:
         if x < 0 or x >= self.game_width or y < 0 or y >= self.game_height:
             return False
 
+        if (x, y) in self.body:
+            return False
+
         self.head = (x, y)
         self.body.insert(0, self.head)
 
