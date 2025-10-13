@@ -71,3 +71,7 @@ def test_snake_cannot_reverse_direction(snake: Snake):
     snake.change_direction("left")
     snake.change_direction("right")
     assert snake.direction == "left"
+
+    snake.change_direction("up")
+    snake.change_direction("down")
+    assert snake.direction == "up"

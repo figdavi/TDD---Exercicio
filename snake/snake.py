@@ -34,5 +34,7 @@ class Snake:
 
         opposite = {"up": "down", "down": "up", "left": "right", "right": "left"}
 
-        if new_direction != opposite[self.direction]:
-            self.direction = new_direction
+        if new_direction == opposite[self.direction]:
+            return
+
+        self.direction = new_direction
