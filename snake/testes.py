@@ -81,5 +81,17 @@ def test_snake_grows_when_eating_fruit(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
     snake.fruits.append((2, 1))
+    snake.direction = "up"
     snake.move()
+
     assert len(snake.body) == 2
+
+
+def test_fruits_get_removed_after_being_eaten(snake: Snake):
+    snake.head = (2, 2)
+    snake.body = [(2, 2)]
+    snake.fruits = [(2, 1)]
+    snake.direction = "up"
+    snake.move()
+
+    assert (2, 1) not in snake.fruits
