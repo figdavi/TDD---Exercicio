@@ -9,6 +9,8 @@ class Snake:
         self.body = body
         self.direction: Direction = "up"
         self.fruits: list[tuple[int, int]] = []
+        self.game_height: int = 10
+        self.game_width: int = 10
 
     def move(self):
         x, y = self.head
@@ -22,6 +24,9 @@ class Snake:
                 x -= 1
             case "right":
                 x += 1
+
+        if x < 0 or x >= self.game_width or y < 0 or y >= self.game_height:
+            return False
 
         self.head = (x, y)
         self.body.insert(0, self.head)
