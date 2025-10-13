@@ -8,6 +8,7 @@ class Snake:
         self.head = head
         self.body = body
         self.direction: Direction = "up"
+        self.fruit: tuple[int, int] | None = None
 
     def move(self):
         x, y = self.head
@@ -24,7 +25,8 @@ class Snake:
 
         self.head = (x, y)
         self.body.insert(0, self.head)
-        self.body.pop()
+        if self.fruit != self.head:
+            self.body.pop()
 
     def change_direction(self, new_direction: Direction):
         # Checks if new_direction is a valid direction
