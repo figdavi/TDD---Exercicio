@@ -23,11 +23,13 @@ class Snake:
             case "right":
                 x = (x + 1) % width
 
+        new_head = (x, y)
+
         # Check if head movement will collide with body
-        if (x, y) in self.body:
+        if new_head in self.body:
             return False
 
-        self.head = (x, y)
+        self.head = new_head
         self.body.insert(0, self.head)
 
         # Fruit eating logic
