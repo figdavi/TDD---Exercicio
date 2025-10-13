@@ -27,6 +27,7 @@ def test_snake_moves_up(snake: Snake):
 def test_snake_moves_down(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
+    snake.direction = "left"  # start with safe direction
     snake.change_direction("down")
 
     snake.move()
@@ -58,12 +59,12 @@ def test_snake_moves_right(snake: Snake):
 
 
 def test_snake_invalid_direction(snake: Snake):
-    snake.change_direction("down")
+    snake.change_direction("right")
 
     snake.change_direction("a")  # type: ignore
     snake.change_direction("lef")  # type: ignore
 
-    assert snake.direction == "down"
+    assert snake.direction == "right"
 
 
 def test_snake_cannot_reverse_direction(snake: Snake):

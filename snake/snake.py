@@ -28,7 +28,11 @@ class Snake:
 
     def change_direction(self, new_direction: Direction):
         # Checks if new_direction is a valid direction
-        if new_direction in Direction.__args__:
-            self.direction = new_direction
-        else:
+        if new_direction not in Direction.__args__:
             print("Invalid direction.")
+            return
+
+        opposite = {"up": "down", "down": "up", "left": "right", "right": "left"}
+
+        if new_direction != opposite[self.direction]:
+            self.direction = new_direction
