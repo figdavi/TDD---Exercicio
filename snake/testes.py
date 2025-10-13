@@ -125,3 +125,9 @@ def game(snake: Snake):
 def test_game_constructor(game: Game):
     assert game.height == 10
     assert game.width == 10
+
+
+def test_game_fruit_spawn(game: Game):
+    game.snake.head = (0, 0)
+    game.snake.body = [(0, 0)]
+    assert len(game.fruits) == 1
