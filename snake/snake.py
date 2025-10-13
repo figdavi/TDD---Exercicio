@@ -25,3 +25,6 @@ class Snake:
         self.head = (x, y)
         self.body.insert(0, self.head)
         self.body.pop()
+
+    def change_direction(self, new_direction: Direction):
+        self.direction = new_direction
