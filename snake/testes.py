@@ -104,3 +104,12 @@ def test_snake_hits_wall_returns_false(snake: Snake):
 
     result = snake.move()
     assert result is False
+
+
+def test_snake_hits_itself_returns_false(snake: Snake):
+    snake.body = [(2, 2), (1, 2), (1, 3), (2, 3)]
+    snake.head = (2, 2)
+    snake.direction = "down"
+
+    result = snake.move()
+    assert result is False

@@ -4,7 +4,7 @@ Direction = Literal["up", "down", "right", "left"]
 
 
 class Snake:
-    def __init__(self, head: tuple[int, int], body: list[tuple[int, int]]) -> bool:
+    def __init__(self, head: tuple[int, int], body: list[tuple[int, int]]):
         self.head = head
         self.body = body
         self.direction: Direction = "up"
