@@ -27,4 +27,5 @@ class Snake:
         self.body.pop()
 
     def change_direction(self, new_direction: Direction):
+        # Check if new_direction is a valid direction
         self.direction = new_direction
