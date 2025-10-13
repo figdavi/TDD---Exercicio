@@ -58,10 +58,10 @@ def test_snake_moves_right(snake: Snake):
 
 
 def test_snake_invalid_direction(snake: Snake):
-    snake.change_direction("a")
+    snake.change_direction("a")  # type: ignore
 
     assert snake.direction != "a"
 
-    snake.change_direction("lef")
+    snake.change_direction("lef")  # type: ignore
 
     assert snake.direction != "lef"
