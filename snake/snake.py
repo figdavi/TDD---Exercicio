@@ -15,17 +15,13 @@ class Snake:
         match self.direction:
             # upmost is [0][0]
             case "up":
-                y -= 1
+                y = (y - 1) % height
             case "down":
-                y += 1
+                y = (y + 1) % height
             case "left":
-                x -= 1
+                x = (x - 1) % width
             case "right":
-                x += 1
-
-        # Check if move is out of bounds
-        if x < 0 or x >= width or y < 0 or y >= height:
-            return False
+                x = (x + 1) % width
 
         # Check if head movement will collide with body
         if (x, y) in self.body:
