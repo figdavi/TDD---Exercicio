@@ -75,3 +75,11 @@ def test_snake_cannot_reverse_direction(snake: Snake):
     snake.change_direction("up")
     snake.change_direction("down")
     assert snake.direction == "up"
+
+
+def test_snake_grows_when_eating_fruit(snake: Snake):
+    snake.head = (2, 2)
+    snake.body = [(2, 2)]
+    snake.fruit = (2, 1)
+    snake.move()
+    assert len(snake.body) == 2
