@@ -25,8 +25,11 @@ class Snake:
 
         self.head = (x, y)
         self.body.insert(0, self.head)
+
         if self.head not in self.fruits:
             self.body.pop()
+        else:
+            self.fruits.remove(self.head)
 
     def change_direction(self, new_direction: Direction):
         # Checks if new_direction is a valid direction
