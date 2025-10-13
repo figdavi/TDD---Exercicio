@@ -9,10 +9,8 @@ class Snake:
         self.body = body
         self.direction: Direction = "up"
         self.fruits: list[tuple[int, int]] = []
-        self.game_height: int = 10
-        self.game_width: int = 10
 
-    def move(self) -> bool:
+    def move(self, height: int, width: int, fruits: list[tuple[int, int]]) -> bool:
         x, y = self.head
         match self.direction:
             # upmost is [0][0]
@@ -26,7 +24,7 @@ class Snake:
                 x += 1
 
         # Check if move is out of bounds
-        if x < 0 or x >= self.game_width or y < 0 or y >= self.game_height:
+        if x < 0 or x >= width or y < 0 or y >= height:
             return False
 
         # Check if head movement will collide with body

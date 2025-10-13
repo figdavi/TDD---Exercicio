@@ -19,7 +19,7 @@ def test_snake_moves_up(snake: Snake):
     snake.body = [(2, 2)]
     snake.change_direction("up")
 
-    snake.move()
+    snake.move(10, 10, [])
     assert snake.direction == "up"
     assert snake.head == (2, 1)
     assert snake.body == [(2, 1)]
@@ -31,7 +31,7 @@ def test_snake_moves_down(snake: Snake):
     snake.direction = "left"  # start with safe direction
     snake.change_direction("down")
 
-    snake.move()
+    snake.move(10, 10, [])
     assert snake.direction == "down"
     assert snake.head == (2, 3)
     assert snake.body == [(2, 3)]
@@ -42,7 +42,7 @@ def test_snake_moves_left(snake: Snake):
     snake.body = [(2, 2)]
     snake.change_direction("left")
 
-    snake.move()
+    snake.move(10, 10, [])
     assert snake.direction == "left"
     assert snake.head == (1, 2)
     assert snake.body == [(1, 2)]
@@ -53,7 +53,7 @@ def test_snake_moves_right(snake: Snake):
     snake.body = [(2, 2)]
     snake.change_direction("right")
 
-    snake.move()
+    snake.move(10, 10, [])
     assert snake.direction == "right"
     assert snake.head == (3, 2)
     assert snake.body == [(3, 2)]
@@ -83,7 +83,7 @@ def test_snake_grows_when_eating_fruit(snake: Snake):
     snake.body = [(2, 2)]
     snake.fruits.append((2, 1))
     snake.direction = "up"
-    snake.move()
+    snake.move(10, 10, [])
 
     assert len(snake.body) == 2
 
@@ -93,7 +93,7 @@ def test_fruits_get_removed_after_being_eaten(snake: Snake):
     snake.body = [(2, 2)]
     snake.fruits = [(2, 1)]
     snake.direction = "up"
-    snake.move()
+    snake.move(10, 10, [])
 
     assert (2, 1) not in snake.fruits
 
@@ -103,7 +103,7 @@ def test_snake_hits_wall_returns_false(snake: Snake):
     snake.body = [(0, 0)]
     snake.direction = "up"
 
-    result = snake.move()
+    result = snake.move(10, 10, [])
     assert result is False
 
 
@@ -112,7 +112,7 @@ def test_snake_hits_itself_returns_false(snake: Snake):
     snake.head = (2, 2)
     snake.direction = "down"
 
-    result = snake.move()
+    result = snake.move(10, 10, [])
     assert result is False
 
 
@@ -124,3 +124,7 @@ def game(snake: Snake):
 def test_game_constructor(game: Game):
     assert game.height == 10
     assert game.width == 10
+
+
+def test_game_fruit_count(game: Game):
+    assert len(game.snake.body)
