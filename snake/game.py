@@ -1,6 +1,7 @@
 # O jogo deve também deve permitir que a cobra dê a volta na tela e quando a cobra atinge tamanho 10, duas frutas devem aparecer por vez, quando atingir 20, três frutas, e assim por diante.
 
 from .snake import Snake
+import random
 
 
 class Game:
@@ -11,3 +12,15 @@ class Game:
             head=(width // 2, height // 2), body=[(width // 2, height // 2)]
         )
         self.fruits: list[tuple[int, int]] = []
+        self.spawn_fruits()
+
+    def required_fruit_count(self):
+        return 1 + len(self.snake.body) // 10
+
+    def spawn_fruits(self):
+        while len(self.fruits) < self.required_fruit_count():
+            x = random.randint(0, self.width - 1)
+            y = random.randint(0, self.height - 1)
+            new_fruit = (x, y)
+            if new_fruit not in self.snake.body and new_fruit not in self.fruits:
+                self.fruits.append(new_fruit)
