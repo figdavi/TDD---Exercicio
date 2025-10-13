@@ -80,6 +80,6 @@ def test_snake_cannot_reverse_direction(snake: Snake):
 def test_snake_grows_when_eating_fruit(snake: Snake):
     snake.head = (2, 2)
     snake.body = [(2, 2)]
-    snake.fruit = (2, 1)
+    snake.fruits.append((2, 1))
     snake.move()
     assert len(snake.body) == 2
