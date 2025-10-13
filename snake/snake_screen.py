@@ -1,7 +1,7 @@
 import os
 import keyboard
 import time
-from game import Game
+from snake.game import Game
 
 
 class io_handler:

@@ -1,6 +1,6 @@
 import pytest
-from .snake import Snake
-from .game import Game
+from snake.snake import Snake
+from snake.game import Game
 
 
 @pytest.fixture

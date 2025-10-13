@@ -1,6 +1,6 @@
 # O jogo deve também deve permitir que a cobra dê a volta na tela e quando a cobra atinge tamanho 10, duas frutas devem aparecer por vez, quando atingir 20, três frutas, e assim por diante.
 
-from snake import Snake
+from snake.snake import Snake
 import random
 
 
@@ -8,7 +8,7 @@ class Game:
     def __init__(self, height: int, width: int):
         self.height = height
         self.width = width
-        self.snake = Snake(
+        self.snake: Snake = Snake(
             head=(width // 2, height // 2), body=[(width // 2, height // 2)]
         )
         self.fruits: list[tuple[int, int]] = []
