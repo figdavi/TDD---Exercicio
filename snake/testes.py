@@ -95,3 +95,13 @@ def test_fruits_get_removed_after_being_eaten(snake: Snake):
     snake.move()
 
     assert (2, 1) not in snake.fruits
+
+
+def test_snake_hits_wall_returns_false(snake: Snake):
+    snake.head = (0, 0)
+    snake.body = [(0, 0)]
+    snake.direction = "up"
+    snake.game_height, snake.game_width = 10, 10
+
+    result = snake.move()
+    assert result is False
