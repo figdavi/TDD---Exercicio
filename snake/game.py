@@ -1,6 +1,6 @@
 # O jogo deve também deve permitir que a cobra dê a volta na tela e quando a cobra atinge tamanho 10, duas frutas devem aparecer por vez, quando atingir 20, três frutas, e assim por diante.
 
-from .snake import Snake
+from snake import Snake
 import random
 
 
