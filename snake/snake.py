@@ -1,6 +1,6 @@
 from typing import Literal
 
-type Direction = Literal["up", "down", "right", "left"]
+Direction = Literal["up", "down", "right", "left"]
 
 
 class Snake:
@@ -27,5 +27,8 @@ class Snake:
         self.body.pop()
 
     def change_direction(self, new_direction: Direction):
-        # Check if new_direction is a valid direction
-        self.direction = new_direction
+        # Checks if new_direction is a valid direction
+        if new_direction in Direction.__args__:
+            self.direction = new_direction
+        else:
+            print("Invalid direction.")
