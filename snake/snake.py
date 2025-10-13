@@ -12,7 +12,7 @@ class Snake:
         self.game_height: int = 10
         self.game_width: int = 10
 
-    def move(self):
+    def move(self) -> bool:
         x, y = self.head
         match self.direction:
             # upmost is [0][0]
@@ -29,6 +29,7 @@ class Snake:
         if x < 0 or x >= self.game_width or y < 0 or y >= self.game_height:
             return False
 
+        # Check if head movement will collide with body
         if (x, y) in self.body:
             return False
 
