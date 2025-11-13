@@ -24,6 +24,7 @@ clock = pygame.time.Clock()
 # Sprites
 snake_head_img = pygame.image.load(GRAPHICS_DIR / "head_up.png").convert_alpha()
 snake_body_img = pygame.image.load(GRAPHICS_DIR / "body_vertical.png").convert_alpha()
+fruit_img = pygame.image.load(GRAPHICS_DIR / "apple.png").convert_alpha()
 
 running = True
 while running:
@@ -39,16 +40,20 @@ while running:
             elif event.key in dir_map:
                 game.snake.change_direction(new_direction=dir_map[event.key])
 
-    # Snake drawing
-    screen.blit(snake_head_img, game.snake.head)
-    for x, y in game.snake.body:
-        screen.blit(snake_body_img, (x, y))
-
     # Move snake
     if not game.snake.move(game.height, game.width, game.fruits):
         print("Game Over")
         break
     game.spawn_fruits()
+
+    # Snake drawing
+    screen.blit(snake_head_img, game.snake.head)
+    for x, y in game.snake.body:
+        screen.blit(snake_body_img, (x, y))
+
+    # Fruit drawing
+    for x, y in game.fruits:
+        screen.blit(fruit_img, (x, y))
 
     pygame.display.flip()
     clock.tick(60)
