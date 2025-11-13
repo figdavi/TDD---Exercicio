@@ -27,6 +27,10 @@ snake_head_img = pygame.image.load(GRAPHICS_DIR / "head_up.png").convert_alpha()
 snake_body_img = pygame.image.load(GRAPHICS_DIR / "body_vertical.png").convert_alpha()
 fruit_img = pygame.image.load(GRAPHICS_DIR / "apple.png").convert_alpha()
 
+snake_head_img = pygame.transform.scale(snake_head_img, (CELL_SIZE, CELL_SIZE))
+snake_body_img = pygame.transform.scale(snake_body_img, (CELL_SIZE, CELL_SIZE))
+fruit_img = pygame.transform.scale(fruit_img, (CELL_SIZE, CELL_SIZE))
+
 running = True
 while running:
     screen.fill((0, 0, 0))
