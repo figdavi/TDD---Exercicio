@@ -20,7 +20,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
-            if event.key in dir_map:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            elif event.key in dir_map:
                 game.snake.change_direction(new_direction=dir_map[event.key])
 
 print("Quitting..")
