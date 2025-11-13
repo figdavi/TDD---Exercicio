@@ -5,58 +5,58 @@ from snake.game import Game
 
 @pytest.fixture
 def snake():
-    return Snake(head=(0, 0), body=[(0, 0)])
+    return Snake(head=(0, 0), body=[(0, 1)])
 
 
 def test_snake_constructor(snake: Snake):
     assert snake.head == (0, 0)
-    assert snake.body == [(0, 0)]
+    assert snake.body == [(0, 1)]
     assert snake.direction == "up"
 
 
 def test_snake_moves_up(snake: Snake):
     snake.head = (2, 2)
-    snake.body = [(2, 2)]
+    snake.body = [(2, 3)]
     snake.change_direction("up")
 
     snake.move(10, 10, [])
     assert snake.direction == "up"
     assert snake.head == (2, 1)
-    assert snake.body == [(2, 1)]
+    assert snake.body == [(2, 2)]
 
 
 def test_snake_moves_down(snake: Snake):
     snake.head = (2, 2)
-    snake.body = [(2, 2)]
+    snake.body = [(2, 1)]
     snake.direction = "left"  # start with safe direction
     snake.change_direction("down")
 
     snake.move(10, 10, [])
     assert snake.direction == "down"
     assert snake.head == (2, 3)
-    assert snake.body == [(2, 3)]
+    assert snake.body == [(2, 2)]
 
 
 def test_snake_moves_left(snake: Snake):
     snake.head = (2, 2)
-    snake.body = [(2, 2)]
+    snake.body = [(3, 2)]
     snake.change_direction("left")
 
     snake.move(10, 10, [])
     assert snake.direction == "left"
     assert snake.head == (1, 2)
-    assert snake.body == [(1, 2)]
+    assert snake.body == [(2, 2)]
 
 
 def test_snake_moves_right(snake: Snake):
     snake.head = (2, 2)
-    snake.body = [(2, 2)]
+    snake.body = [(1, 2)]
     snake.change_direction("right")
 
     snake.move(10, 10, [])
     assert snake.direction == "right"
     assert snake.head == (3, 2)
-    assert snake.body == [(3, 2)]
+    assert snake.body == [(2, 2)]
 
 
 def test_snake_invalid_direction(snake: Snake):
@@ -80,17 +80,18 @@ def test_snake_cannot_reverse_direction(snake: Snake):
 
 def test_snake_grows_when_eating_fruit(snake: Snake, game: Game):
     snake.head = (2, 2)
-    snake.body = [(2, 2)]
+    snake.body = [(2, 3)]
     game.fruits = [(2, 1)]
     snake.direction = "up"
     snake.move(game.width, game.height, game.fruits)
 
     assert len(snake.body) == 2
+    assert (2, 1) not in game.fruits
 
 
 def test_fruits_get_removed_after_being_eaten(snake: Snake, game: Game):
     snake.head = (2, 2)
-    snake.body = [(2, 2)]
+    snake.body = [(2, 3)]
     game.fruits = [(2, 1)]
     snake.direction = "up"
     snake.move(game.width, game.height, game.fruits)
@@ -100,17 +101,17 @@ def test_fruits_get_removed_after_being_eaten(snake: Snake, game: Game):
 
 def test_snake_hits_wall_wraps_around(snake: Snake):
     snake.head = (0, 0)
-    snake.body = [(0, 0)]
+    snake.body = [(0, 1)]
     snake.direction = "up"
 
     snake.move(10, 10, [])
     assert snake.head == (0, 9)
-    assert snake.body == [(0, 9)]
+    assert snake.body == [(0, 0)]
 
 
 def test_snake_hits_itself_returns_false(snake: Snake):
     snake.body = [(2, 2), (1, 2), (1, 3), (2, 3)]
-    snake.head = (2, 2)
+    snake.head = (2, 1)
     snake.direction = "down"
 
     result = snake.move(10, 10, [])
@@ -129,5 +130,5 @@ def test_game_constructor(game: Game):
 
 def test_game_fruit_spawn(game: Game):
     game.snake.head = (0, 0)
-    game.snake.body = [(0, 0)]
+    game.snake.body = [(0, 1)]
     assert len(game.fruits) == 1
