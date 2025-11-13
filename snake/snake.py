@@ -5,6 +5,8 @@ Direction = Literal["up", "down", "right", "left"]
 
 class Snake:
     def __init__(self, head: tuple[int, int], body: list[tuple[int, int]]):
+        if head in body:
+            raise ValueError("Head position cannot overlap with body.")
         self.head = head
         self.body = body
         self.direction: Direction = "up"
@@ -24,12 +26,12 @@ class Snake:
 
         new_head = (x, y)
 
-        # Check if head movement will collide with body
+        # Collision check with body
         if new_head in self.body:
             return False
 
-        self.head = new_head
         self.body.insert(0, self.head)
+        self.head = new_head
 
         # Fruit eating logic
         if self.head not in fruits:
