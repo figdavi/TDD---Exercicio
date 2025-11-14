@@ -4,7 +4,7 @@ from snake.snake import Direction
 from snake.game import Game
 
 # Constants
-CLOCK_TICK_SPEED = 10
+CLOCK_TICK_SPEED = 30
 CELL_SIZE = 20
 GRID_WIDTH = 640 // CELL_SIZE
 GRID_HEIGHT = 640 // CELL_SIZE
@@ -17,7 +17,7 @@ dir_map: dict[int, Direction] = {
 }
 
 # Game initilization
-game = Game(GRID_HEIGHT, GRID_WIDTH)
+game = Game(GRID_WIDTH, GRID_HEIGHT)
 pygame.init()
 screen = pygame.display.set_mode((DIMENSIONS[0], DIMENSIONS[1]))
 clock = pygame.time.Clock()
@@ -53,6 +53,7 @@ fruit_img = pygame.transform.scale(fruit_img, (CELL_SIZE, CELL_SIZE))
 
 running = True
 while running:
+    dir_changed_in_this_frame = False
     screen.fill((0, 0, 0))
 
     # Quit button and key pressing logic
@@ -62,8 +63,12 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-            elif event.key in dir_map:
+            elif event.key in dir_map and not dir_changed_in_this_frame:
+                old_dir = game.snake.direction
                 game.snake.change_direction(new_direction=dir_map[event.key])
+
+                if game.snake.direction != old_dir:
+                    dir_changed_in_this_frame = True
 
     # Move snake
     if not game.snake.move(game.height, game.width, game.fruits):
