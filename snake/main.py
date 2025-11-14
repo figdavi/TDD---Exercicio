@@ -4,10 +4,10 @@ from snake.snake import Direction
 from snake.game import Game
 
 # Constants
-CLOCK_TICK_SPEED = 30
+CLOCK_TICK_SPEED = 10
 CELL_SIZE = 20
-GRID_WIDTH = 640 // CELL_SIZE
-GRID_HEIGHT = 640 // CELL_SIZE
+GRID_WIDTH = 512 // CELL_SIZE
+GRID_HEIGHT = 512 // CELL_SIZE
 DIMENSIONS = (GRID_WIDTH * CELL_SIZE, GRID_HEIGHT * CELL_SIZE)
 dir_map: dict[int, Direction] = {
     pygame.K_w: "up",
@@ -22,34 +22,32 @@ pygame.init()
 screen = pygame.display.set_mode((DIMENSIONS[0], DIMENSIONS[1]))
 clock = pygame.time.Clock()
 
-# Sprites
+# Graphics directory containing all images
 GRAPHICS_DIR = Path(__file__).resolve().parent / "graphics"
-snake_head_img = pygame.image.load(GRAPHICS_DIR / "head_up.png").convert_alpha()
+
 snake_body_img = pygame.image.load(GRAPHICS_DIR / "body_vertical.png").convert_alpha()
+snake_body_img = pygame.transform.scale(snake_body_img, (CELL_SIZE, CELL_SIZE))
 fruit_img = pygame.image.load(GRAPHICS_DIR / "apple.png").convert_alpha()
+fruit_img = pygame.transform.scale(fruit_img, (CELL_SIZE, CELL_SIZE))
 
 
-def load_image(name: str) -> pygame.Surface:
-    path: Path = GRAPHICS_DIR / name
-    image = pygame.image.load(path).convert_alpha()
-    return pygame.transform.scale(image, (CELL_SIZE, CELL_SIZE))
+def load_all_images() -> dict[str, pygame.Surface]:
+    images: dict[str, pygame.Surface] = {}
+    for path in GRAPHICS_DIR.glob("*.png"):
+        key = path.stem  # filename without extension
+        img = pygame.image.load(path).convert_alpha()
+        img = pygame.transform.scale(img, (CELL_SIZE, CELL_SIZE))
+        images[key] = img
+    return images
 
 
-head_imgs = {
-    "up": load_image("head_up.png"),
-    "down": load_image("head_down.png"),
-    "left": load_image("head_left.png"),
-    "right": load_image("head_right.png"),
-}
+images = load_all_images()
 
 
 def get_head_img():
-    return head_imgs[game.snake.direction]
+    img_name = "head_" + game.snake.direction
+    return images[img_name]
 
-
-snake_head_img = pygame.transform.scale(snake_head_img, (CELL_SIZE, CELL_SIZE))
-snake_body_img = pygame.transform.scale(snake_body_img, (CELL_SIZE, CELL_SIZE))
-fruit_img = pygame.transform.scale(fruit_img, (CELL_SIZE, CELL_SIZE))
 
 running = True
 while running:
