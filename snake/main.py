@@ -25,11 +25,6 @@ clock = pygame.time.Clock()
 # Graphics directory containing all images
 GRAPHICS_DIR = Path(__file__).resolve().parent / "graphics"
 
-snake_body_img = pygame.image.load(GRAPHICS_DIR / "body_vertical.png").convert_alpha()
-snake_body_img = pygame.transform.scale(snake_body_img, (CELL_SIZE, CELL_SIZE))
-fruit_img = pygame.image.load(GRAPHICS_DIR / "apple.png").convert_alpha()
-fruit_img = pygame.transform.scale(fruit_img, (CELL_SIZE, CELL_SIZE))
-
 
 def load_all_images() -> dict[str, pygame.Surface]:
     images: dict[str, pygame.Surface] = {}
@@ -42,6 +37,11 @@ def load_all_images() -> dict[str, pygame.Surface]:
 
 
 loaded_images = load_all_images()
+
+
+def get_fruit_img():
+    img_name = "apple"
+    return loaded_images[img_name]
 
 
 def get_head_img(snake: Snake):
@@ -155,7 +155,7 @@ while running:
 
     # Fruit drawing
     for x, y in game.fruits:
-        screen.blit(fruit_img, (x * CELL_SIZE, y * CELL_SIZE))
+        screen.blit(get_fruit_img(), (x * CELL_SIZE, y * CELL_SIZE))
 
     pygame.display.flip()
     clock.tick(CLOCK_TICK_SPEED)
