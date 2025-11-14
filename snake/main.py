@@ -1,6 +1,6 @@
 import pygame
 from pathlib import Path
-from snake.snake import Direction
+from snake.snake import Direction, Snake
 from snake.game import Game
 
 # Constants
@@ -41,12 +41,76 @@ def load_all_images() -> dict[str, pygame.Surface]:
     return images
 
 
-images = load_all_images()
+loaded_images = load_all_images()
 
 
-def get_head_img():
-    img_name = "head_" + game.snake.direction
-    return images[img_name]
+def get_head_img(snake: Snake):
+    img_name = "head_" + snake.direction
+    return loaded_images[img_name]
+
+
+def get_body_img(snake: Snake, i: int):
+    body = snake.body
+
+    curr = body[i]
+
+    # [head] [body0] [body1] ... [bodyn (or tail)]
+
+    # segment behind the head
+    if i == 0:
+        prev_seg = snake.head
+    else:
+        prev_seg = body[i - 1]
+
+    # last segment (tail)
+    if i == len(body) - 1:
+        next_seg = None
+    else:
+        next_seg = body[i + 1]
+
+    cx, cy = curr
+    px, py = prev_seg
+
+    # If tail → determine orientation from prev_seg only
+    if next_seg is None:
+        # Tail orientation: where is prev_seg?
+        if px == cx and py < cy:
+            return "tail_down"
+        if px == cx and py > cy:
+            return "tail_up"
+        if py == cy and px < cx:
+            return "tail_right"
+        if py == cy and px > cx:
+            return "tail_left"
+
+        return "tail_up"  # fallback
+
+    nx, ny = next_seg
+
+    # Straight pieces
+    if px == nx:
+        return "body_vertical"
+    if py == ny:
+        return "body_horizontal"
+
+    # Corner pieces
+    # turn top-left
+    if (px < cx and ny < cy) or (nx < cx and py < cy):
+        return "body_topleft"
+
+    # turn bottom-left
+    if (px < cx and ny > cy) or (nx < cx and py > cy):
+        return "body_bottomleft"
+
+    # turn top-right
+    if (px > cx and ny < cy) or (nx > cx and py < cy):
+        return "body_topright"
+
+    # turn bottom-right
+    if (px > cx and ny > cy) or (nx > cx and py > cy):
+        return "body_bottomright"
+
+    return "body_vertical"
 
 
 running = True
@@ -65,6 +129,7 @@ while running:
                 old_dir = game.snake.direction
                 game.snake.change_direction(new_direction=dir_map[event.key])
 
+                # Having more than one presses in one frame causes bugs (like unexpected Game Over)
                 if game.snake.direction != old_dir:
                     dir_changed_in_this_frame = True
 
@@ -75,11 +140,18 @@ while running:
     game.spawn_fruits()
 
     # Snake drawing
+    ## Head
     screen.blit(
-        get_head_img(), (game.snake.head[0] * CELL_SIZE, game.snake.head[1] * CELL_SIZE)
+        get_head_img(game.snake),
+        (game.snake.head[0] * CELL_SIZE, game.snake.head[1] * CELL_SIZE),
     )
-    for x, y in game.snake.body:
-        screen.blit(snake_body_img, (x * CELL_SIZE, y * CELL_SIZE))
+
+    ## Body (and tail)
+    for i, body in enumerate(game.snake.body):
+        x, y = body
+        img_name = get_body_img(game.snake, i)
+        img = loaded_images[img_name]
+        screen.blit(img, (x * CELL_SIZE, y * CELL_SIZE))
 
     # Fruit drawing
     for x, y in game.fruits:
