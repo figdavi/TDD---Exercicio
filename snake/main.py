@@ -4,6 +4,7 @@ from snake.snake import Direction
 from snake.game import Game
 
 # Constants
+CLOCK_TICK_SPEED = 10
 CELL_SIZE = 20
 GRID_WIDTH = 640 // CELL_SIZE
 GRID_HEIGHT = 640 // CELL_SIZE
@@ -26,6 +27,25 @@ GRAPHICS_DIR = Path(__file__).resolve().parent / "graphics"
 snake_head_img = pygame.image.load(GRAPHICS_DIR / "head_up.png").convert_alpha()
 snake_body_img = pygame.image.load(GRAPHICS_DIR / "body_vertical.png").convert_alpha()
 fruit_img = pygame.image.load(GRAPHICS_DIR / "apple.png").convert_alpha()
+
+
+def load_image(name: str) -> pygame.Surface:
+    path: Path = GRAPHICS_DIR / name
+    image = pygame.image.load(path).convert_alpha()
+    return pygame.transform.scale(image, (CELL_SIZE, CELL_SIZE))
+
+
+head_imgs = {
+    "up": load_image("head_up.png"),
+    "down": load_image("head_down.png"),
+    "left": load_image("head_left.png"),
+    "right": load_image("head_right.png"),
+}
+
+
+def get_head_img():
+    return head_imgs[game.snake.direction]
+
 
 snake_head_img = pygame.transform.scale(snake_head_img, (CELL_SIZE, CELL_SIZE))
 snake_body_img = pygame.transform.scale(snake_body_img, (CELL_SIZE, CELL_SIZE))
@@ -53,7 +73,7 @@ while running:
 
     # Snake drawing
     screen.blit(
-        snake_head_img, (game.snake.head[0] * CELL_SIZE, game.snake.head[1] * CELL_SIZE)
+        get_head_img(), (game.snake.head[0] * CELL_SIZE, game.snake.head[1] * CELL_SIZE)
     )
     for x, y in game.snake.body:
         screen.blit(snake_body_img, (x * CELL_SIZE, y * CELL_SIZE))
@@ -63,6 +83,6 @@ while running:
         screen.blit(fruit_img, (x * CELL_SIZE, y * CELL_SIZE))
 
     pygame.display.flip()
-    clock.tick(10)
+    clock.tick(CLOCK_TICK_SPEED)
 
 pygame.quit()
